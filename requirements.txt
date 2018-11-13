@@ -1,0 +1,7 @@
+pysqlite3
+flask
+flask-login
+Flask-WTF
+SQLAlchemy
+flask_sqlalchemy
+config
