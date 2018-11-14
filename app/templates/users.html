@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body class="fixed-nav sticky-footer bg-dark " id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="/index">
+      <img alt="Internetvikings" src="{{url_for('.static', filename='logo.png')}}" align="left">
+      &nbsp; Admin Tools
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        <li>&nbsp;</li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="IP Inventory">
+          <a class="nav-link" href="/ipinventory">
+            <i class="fa fa-fw fa-area-chart"></i>
+            <span class="nav-link-text">IP Inventory</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Customers">
+          <a class="nav-link" href="/ipdb">
+            <i class="fa fa-fw fa-users"></i>
+            <span class="nav-link-text">Customers</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Ipdelivery">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#ipdelivery" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-server"></i>
+            <span class="nav-link-text">IP Delivery</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="ipdelivery">
+            <li>
+              <a href="/newselectdeliver">Select/Deliver IP's</a>
+              <a href="/ipdeliver">Deliver existing IP's</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Find IP">
+          <a class="nav-link" href="/findip">
+            <i class="fa fa-fw fa-search"></i>
+            <span class="nav-link-text">Find IP</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-wrench"></i>
+            <span class="nav-link-text">Logs</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseComponents">
+            <li>
+              <a href="/logs">Delivery Logs</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="navbar-nav sidenav-toggler">
+        <li class="nav-item">
+          <a class="nav-link text-center" id="sidenavToggler">
+            <i class="fa fa-fw fa-angle-left"></i>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mr-lg-2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <i class="fa fa-user fa-fw"></i>{{ user }}
+            <span class="indicator text-primary d-none d-lg-block">
+              <i class="fa fa-fw"></i>
+            </span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="messagesDropdown">
+            <h6 class="dropdown-header">Actions</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-user fa-fw"></i>Manage Users
+            </a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-gear fa-fw"></i>Preferences
+            </a>
+             <!--div class="text-center">
+             <a class="btn btn-light center-block" href="#" id="toggleNavColor">
+               Toggle Navbar Color
+             </a>
+           </div-->
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <!-- Example DataTables Card-->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-table"></i> Users list</div>
+        <div class="card-body">
+
+          <div class="table-responsive">
+            <div align="center">
+              <a href="/create" class="btn btn-success btn-sm" role="button" aria-pressed="true">New User</a>
+            </div>
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for user in users %}
+                <tr>
+                  <td>{{ user.username }}</td>
+                  <td class="text-center" style="width:30%">
+                    <div class="btn btn-sm">
+                      <a href="/changepass/{{ user.username }}" class="btn btn-info btn-sm" role="button" aria-pressed="true">Change Password</a>
+                      <a href="/userdel/{{ user.username }}" class="btn  btn-danger btn-sm" role="button" aria-pressed="true">Delete</a>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © Internetvikings 2018</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+{% endblock %}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>WebUI</title>
+  <!-- Bootstrap core CSS-->
+  <link href="{{url_for('.static', filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="{{url_for('.static', filename='vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link href="{{url_for('.static', filename='vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="{{url_for('.static', filename='css/sb-admin.css')}}" rel="stylesheet">
+  <link href="{{url_for('.static', filename='css/jquery.loadingModal.css')}}" rel="stylesheet">
+
+</head>
+
+<body>
+
+	{% block body %}{% endblock %}
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{url_for('.static', filename='vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{url_for('.static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="{{url_for('.static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+  <!-- Page level plugin JavaScript-->
+  <script src="{{url_for('.static', filename='vendor/datatables/jquery.dataTables.js')}}"></script>
+  <script src="{{url_for('.static', filename='vendor/datatables/dataTables.bootstrap4.js')}}"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="{{url_for('.static', filename='js/sb-admin.min.js')}}"></script>
+  <!-- Custom scripts for this page-->
+  <script src="{{url_for('.static', filename='js/sb-admin-datatables.min.js')}}"></script>
+  <!-- Bootstrap select theme-->
+  <script src="{{url_for('.static', filename='js/bootstrap-filestyle.min.js')}}"></script>
+  <script src="{{url_for('.static', filename='js/jquery.loadingModal.js')}}"></script>
+
+  <script>
+      $('#toggleNavPosition').click(function() {
+        $('body').toggleClass('fixed-nav');
+        $('nav').toggleClass('fixed-top static-top');
+      });
+
+      </script>
+      <!-- Toggle between dark and light navbar-->
+      <script>
+      $('#toggleNavColor').click(function() {
+        $('nav').toggleClass('navbar-dark navbar-light');
+        $('nav').toggleClass('bg-dark bg-light');
+        $('body').toggleClass('bg-dark bg-light');
+      });
+
+      </script>
+
+  <script>
+  $('#BSbtninfo').filestyle({
+  buttonName : 'btn-info',
+  buttonText : ' Select File with IPs',
+  });
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            var file = e.target.files[0];
+            var textArea = $("#ipslist");
+            if (file) {
+                var reader = new FileReader();
+                reader.readAsText(file, "UTF-8");
+                reader.onload = function (evt) {
+                    textArea.val(evt.target.result);
+                }
+                reader.onerror = function (evt) {
+                    console.log("error reading file");
+                }
+            }
+            // alert('The file "' + fileName +  '" has been selected.');
+        });
+    });
+</script>
+
+
+
+<script>
+    function showModal() {
+      $('body').loadingModal({
+        position: 'auto',
+        text: 'processing the request, please wait...',
+        color: '#fff',
+        opacity: '0.8',
+        backgroundColor: 'rgb(0,0,0)',
+        animation: 'wave'
+      });
+    }
+</script>
+
+
+<script>
+  $('#getipModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var cc = button.data('cc') // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this)
+    modal.find('.modal-title').text('Get IP\'s for ' + cc)
+    modal.find('#cc').val(cc)
+})
+</script>
+
+
+</body>
+</html>

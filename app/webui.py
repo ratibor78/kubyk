@@ -2,17 +2,10 @@ import os
 from app import db
 from app import app
 from flask_wtf import FlaskForm
-from wtforms.validators import (
-    InputRequired, Length, DataRequired, Optional, IPAddress, Regexp
-)
-from wtforms import (
-    StringField, PasswordField, BooleanField, SelectField, TextAreaField,
-)
+from wtforms.validators import (InputRequired, Length)
+from wtforms import (StringField, PasswordField, BooleanField)
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import (
-    json, render_template, make_response,
-    redirect, url_for, request, Response
-)
+from flask import (render_template, url_for, request, redirect)
 from flask_login import (
     LoginManager, UserMixin, login_user,
     login_required, logout_user, current_user
@@ -20,7 +13,6 @@ from flask_login import (
 
 
 pwd = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
-
 
 app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
 login_manager = LoginManager()
@@ -44,17 +36,17 @@ def load_user(user_id):
 
 class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired(), Length(min=2, max=35)]) # NOQA
-    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)]) # NOQA
+    password = PasswordField('password', validators=[InputRequired(), Length(min=1, max=80)]) # NOQA
     remember = BooleanField('remember me')
 
 
 class RegisterForm(FlaskForm):
     username = StringField('username', validators=[InputRequired(), Length(min=4, max=35)]) # NOQA
-    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)]) # NOQA
+    password = PasswordField('password', validators=[InputRequired(), Length(min=1, max=80)]) # NOQA
 
 
 class ChangepassForm(FlaskForm):
-    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)]) # NOQA
+    password = PasswordField('password', validators=[InputRequired(), Length(min=1, max=80)]) # NOQA
 
 
 @app.route('/users')
@@ -81,6 +73,7 @@ def login():
     error = ''
     form = LoginForm()
     if form.validate_on_submit():
+        print(form.username.data)
         user = User.query.filter_by(username=form.username.data).first()
         if user:
             if check_password_hash(user.password, form.password.data):

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body class="bg-dark">
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Delete <b>{{ user }}</b></div>
+      <div class="card-body">
+        <form form action="{{ url_for('userdel', user=user) }}" method="POST">
+          <div class="alert alert-warning">
+            <strong>Warning!</strong> Are you really want to delete {{ user }}
+          </div>
+          <button class="btn btn-danger btn-block" value=userdel type="submit">Delete</button>
+          <a href="/users" class="btn btn-secondary btn-block" role="button" aria-pressed="true">Cancel</a>
+        </form>
+        </div>
+      </div>
+    </div>
+</body>
+{% endblock %}

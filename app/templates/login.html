@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body class="bg-dark">
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">
+        <!--img alt="WebUI" src="{{url_for('.static', filename='loginlogo1.png')}}" align="center"-->
+        &nbsp;WebUI - Login</div>
+      <div class="card-body">
+          {% if error  %}
+          <div class="alert alert-warning">
+            <strong>Warning!</strong> {{ error }}
+          </div>
+          {% endif %}
+        <form form action="{{ url_for('login') }}" method="POST">
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            <label for="username">Username</label>
+              {{ form.username(class_="form-control", placeholder="Username", id="username") }}
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+              {{ form.password(class_="form-control", placeholder="Password", id="password") }}
+            </div>
+          <div class="form-group">
+            <div class="form-check">
+              <label class="remember">
+                {{ form.remember(class_="form-check-input", type="checkbox") }} Remember Me</label>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" value=login type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock %}
