@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body class="bg-dark">
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Change password for <b>{{ username }}</b></div>
+      <div class="card-body">
+        {% if error  %}
+        <div class="alert alert-warning">
+          <strong>Warning!</strong> {{ error }}
+        </div>
+        {% endif %}
+        <form form action="{{ url_for('changepass', username=username) }}" method="POST">
+          {{ form.hidden_tag() }}
+          <!--div class="form-group">
+            <label for="password">Password (8 digits min)</label>
+              {{ form.password(class_="form-control", placeholder="Password", id="password") }}
+          </div-->
+          <div class="form-group">
+            <label for="password">Enter New Password</label>
+              {{ form.password(class_="form-control", placeholder="Password", id="password") }}
+            </div>
+            <div>
+          <button class="btn btn-primary btn-block" value=changepass type="submit">Set new password</button>
+          <a href="/users" class="btn btn-secondary btn-block" role="button" aria-pressed="true">Cancel</a>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock %}

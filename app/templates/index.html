@@ -5,8 +5,8 @@
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="/index">
-      <img alt="Internetvikings" src="{{url_for('.static', filename='logo.png')}}" align="left">
-        &nbsp; WebUI
+      <img alt="WebUI" src="{{url_for('.static', filename='logo.png')}}" align="left" height="35" width="35">
+        &nbsp; Kubyk
     </a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -14,50 +14,38 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <br>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="IP Inventory">
-          <a class="nav-link" href="/ipinventory">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" href="#">
             <i class="fa fa-fw fa-area-chart"></i>
-            <span class="nav-link-text">IP Inventory</span>
+            <span class="nav-link-text">Charts</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Customers">
-          <a class="nav-link" href="/ipdb">
+          <a class="nav-link" href="# ">
             <i class="fa fa-fw fa-users"></i>
             <span class="nav-link-text">Customers</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Ipdelivery">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#ipdelivery" data-parent="#exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Inventory">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#inventory" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-server"></i>
-            <span class="nav-link-text">IP Delivery</span>
+            <span class="nav-link-text">Inventory</span>
           </a>
-          <ul class="sidenav-second-level collapse" id="ipdelivery">
+          <ul class="sidenav-second-level collapse" id="inventory">
             <li>
-              <a href="/newselectdeliver">Select/Deliver IP's</a>
-              <a href="/ipdeliver">Deliver existing IP's</a>
+              <a href="#">Servers</a>
+              <a href="#">Racks</a>
             </li>
           </ul>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Find IP">
-          <a class="nav-link" href="/findip">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Search">
+          <a class="nav-link" href="#">
             <i class="fa fa-fw fa-search"></i>
-            <span class="nav-link-text">Find IP</span>
+            <span class="nav-link-text">Search</span>
           </a>
         </li>
-
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-wrench"></i>
-            <span class="nav-link-text">Logs</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseComponents">
-            <li>
-              <a href="/logs">Delivery Logs</a>
-            </li>
-          </ul>
-        </li>
-
       </ul>
+
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
           <a class="nav-link text-center" id="sidenavToggler">
@@ -98,8 +86,10 @@
 
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
-          <h1 class="display-4">IV Tools</h1>
-          <p class="lead">The Internetvikings Hosting/Support utilities compilation.</p>
+          <h1 class="display-4"><img alt="WebUI" src="{{url_for('.static', filename='logo_big.png')}}" align="left">Kubyk</h1>
+        </br>
+          <p class="lead">The easy Python/Flask application template.
+            <br>Feel free to use it for building any Web UI projects.</p>
         </div>
       </div>
       <div class="row">
@@ -107,12 +97,12 @@
         <div class="col-md-3 mb-4">
           <div class="card h-100">
             <div class="card-body">
-              <h3 class="card-title">IP Inventory</h3>
-              <p class="card-text">Full information about count
-                of IP's available for now, sorted by CC.</p>
+              <h3 class="card-title">SQlite DB</h3>
+              <p class="card-text">This project uses an SQlite3 base for the user's credentials,
+                 also for other features if you need.</p>
             </div>
             <div class="card-footer">
-              <a href="/ipinventory" class="btn btn-primary">More</a>
+              <a href="#" class="btn btn-primary">More</a>
             </div>
           </div>
         </div>
@@ -120,12 +110,12 @@
              <div class="col-md-3 mb-4">
                <div class="card h-100">
                  <div class="card-body">
-                   <h3 class="card-title">Customers</h3>
-                   <p class="card-text">All about Internetvikings customers, list of customers,
-                      their IPs, quick check of IPs status.</p>
+                   <h3 class="card-title">Users</h3>
+                   <p class="card-text">Also this project have a build in very easy user levels model,
+                     there is two level of credentials, the admins and regular users.</p>
                  </div>
                  <div class="card-footer">
-                    <a href="/ipdb" class="btn btn-primary">More</a>
+                    <a href="#" class="btn btn-primary">More</a>
                  </div>
                </div>
              </div>
@@ -133,24 +123,23 @@
              <div class="col-md-3 mb-4">
                <div class="card h-100">
                  <div class="card-body">
-                   <h3 class="card-title">IP Delivery</h3>
-                   <p class="card-text">Delivery IPs inside Internetvikings hosting infrastructure,
-                     to the vlan's and customers servers.</p>
+                   <h3 class="card-title">Bootstrap inside</h3>
+                   <p class="card-text">This project use a well known Bootstrap template inside.</p>
                  </div>
                  <div class="card-footer">
-                   <a href="/ipdeliver" class="btn btn-primary">More</a>
+                   <a href="#" class="btn btn-primary">More</a>
                  </div>
                </div>
              </div>
              <div class="col-md-3 mb-4">
                <div class="card h-100">
                  <div class="card-body">
-                   <h3 class="card-title">Find IP</h3>
-                   <p class="card-text">Determine where's specific IPs or domains are, inside Internetvikings infrastructure,
-                     using arp cache on Core0/1 routers. </p>
+                   <h3 class="card-title">Ready to go</h3>
+                   <p class="card-text">There is an Dockerfile and full documentation with examples,
+                      so you can start use it very quick.</p>
                  </div>
                  <div class="card-footer">
-                   <a href="/findip" class="btn btn-primary">More</a>
+                   <a href="#" class="btn btn-primary">More</a>
                  </div>
                </div>
              </div>
@@ -160,7 +149,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Copyright © Internetvikings 2018</small>
+          <small>Copyright © Alexey Nizhegolenko 2018 / Or put whenever you need here, it under MIT license.</small>
         </div>
       </div>
     </footer>
