@@ -2,8 +2,8 @@ import os
 from app import db
 from app import app
 from flask_wtf import FlaskForm
-from wtforms.validators import (InputRequired, Length)
-from wtforms import (StringField, PasswordField, BooleanField)
+from wtforms.validators import (InputRequired, Length, DataRequired)
+from wtforms import (StringField, PasswordField, SelectField)
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import (render_template, url_for, request, redirect)
 from flask_login import (
@@ -24,6 +24,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(15), unique=True)
     password = db.Column(db.String(80))
+    level = db.Column(db.String(5))
 
     def set_password(self, password):
         self.password = generate_password_hash(password, method='sha256')
@@ -37,16 +38,17 @@ def load_user(user_id):
 class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired(), Length(min=2, max=35)]) # NOQA
     password = PasswordField('password', validators=[InputRequired(), Length(min=1, max=80)]) # NOQA
-    remember = BooleanField('remember me')
 
 
-class RegisterForm(FlaskForm):
-    username = StringField('username', validators=[InputRequired(), Length(min=4, max=35)]) # NOQA
-    password = PasswordField('password', validators=[InputRequired(), Length(min=1, max=80)]) # NOQA
+class CreateForm(FlaskForm):
+    username = StringField('Username', validators=[InputRequired(), Length(min=2, max=35)]) # NOQA
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=1, max=80)]) # NOQA
+    level = SelectField('Access Level', validators=[DataRequired()], choices=[("", ""), ("admin", "admin"), ("user", "user")]) # NOQA
 
 
-class ChangepassForm(FlaskForm):
-    password = PasswordField('password', validators=[InputRequired(), Length(min=1, max=80)]) # NOQA
+class ChangeForm(FlaskForm):
+    password = PasswordField('password') # NOQA
+    level = SelectField('Access Level', validators=[DataRequired()], choices=[("", ""), ("admin", "admin"), ("user", "user")]) # NOQA
 
 
 @app.route('/users')
@@ -77,7 +79,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user:
             if check_password_hash(user.password, form.password.data):
-                login_user(user, remember=form.remember.data)
+                login_user(user)
                 return redirect(url_for('index'))
         error = 'Invalid Username or Password !'
         return render_template('login.html', form=form, error=error) # NOQA
@@ -92,10 +94,10 @@ def login():
 @login_required
 def create():
     error = ''
-    form = RegisterForm()
+    form = CreateForm()
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data, method='sha256') # NOQA
-        new_user = User(username=form.username.data, password=hashed_password) # NOQA
+        new_user = User(username=form.username.data, password=hashed_password, level=form.level.data) # NOQA
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('users'))
@@ -106,22 +108,26 @@ def create():
     return render_template('create.html', form=form)
 
 
-@app.route('/changepass/<username>', methods=['GET', 'POST'])
+@app.route('/changeuser/<username>', methods=['GET', 'POST'])
 @login_required
-def changepass(username):
+def changeuser(username):
     error = ''
-    form = ChangepassForm()
+    getlevel = User.query.filter_by(username=username).first_or_404()
+    level = getlevel.level
+    form = ChangeForm(level=level)
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first_or_404()
-        user.set_password(form.password.data)
+        if form.password.data != '':
+            user.set_password(form.password.data)
+        user.level = form.level.data
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('users'))
     else:
         if request.method == 'POST':
             error = 'Empty or not valid input'
-        return render_template('changepass.html', username=username, form=form, error=error) # NOQA
-    return render_template('changepass.html', username=username, form=form)
+        return render_template('changeuser.html', username=username, form=form, error=error) # NOQA
+    return render_template('changeuser.html', username=username, form=form) # NOQA
 
 
 @app.route('/index')

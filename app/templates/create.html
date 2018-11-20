@@ -22,6 +22,11 @@
               {{ form.password(class_="form-control", placeholder="Password", id="password") }}
             </div>
           <div>
+          <div class="form-group">
+            <label for="level">Access level</label>
+              {{ form.level(class_="custom-select w-70", id="level") }}
+          </div>
+           <div>
             <button class="btn btn-primary btn-block" value=create type="submit">Create</button>
             <a href="/users" class="btn btn-secondary btn-block" role="button" aria-pressed="true">Cancel</a>
           </div>

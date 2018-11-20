@@ -11,7 +11,7 @@
           <strong>Warning!</strong> {{ error }}
         </div>
         {% endif %}
-        <form form action="{{ url_for('changepass', username=username) }}" method="POST">
+        <form form action="{{ url_for('changeuser', username=username) }}" method="POST">
           {{ form.hidden_tag() }}
           <!--div class="form-group">
             <label for="password">Password (8 digits min)</label>
@@ -20,6 +20,11 @@
           <div class="form-group">
             <label for="password">Enter New Password</label>
               {{ form.password(class_="form-control", placeholder="Password", id="password") }}
+            </div>
+          <div class="form-group">
+            <label for="level">Access level</label>
+
+                {{ form.level(class_="custom-select w-70", id="level") }}
             </div>
             <div>
           <button class="btn btn-primary btn-block" value=changepass type="submit">Set new password</button>
