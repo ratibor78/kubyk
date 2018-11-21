@@ -1,6 +1,7 @@
 import os
 from app import db
 from app import app
+from functools import wraps
 from flask_wtf import FlaskForm
 from wtforms.validators import (InputRequired, Length, DataRequired)
 from wtforms import (StringField, PasswordField, SelectField)
@@ -35,6 +36,16 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+def requires_admin_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        role = current_user.level
+        if not role or role != 'admin':
+            return redirect(url_for('index'))
+        return f(*args, **kwargs)
+    return decorated
+
+
 class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired(), Length(min=2, max=35)]) # NOQA
     password = PasswordField('password', validators=[InputRequired(), Length(min=1, max=80)]) # NOQA
@@ -53,13 +64,15 @@ class ChangeForm(FlaskForm):
 
 @app.route('/users')
 @login_required
+@requires_admin_auth
 def users():
     users = User.query.all()
-    return render_template('users.html', users=users, user=current_user.username) # NOQA
+    return render_template('users.html', users=users, user=current_user.username, role=current_user.level) # NOQA
 
 
 @app.route('/userdel/<user>', methods=['GET', 'POST'])
 @login_required
+@requires_admin_auth
 def userdel(user):
     form = LoginForm()
     if request.method == 'POST':
@@ -92,6 +105,7 @@ def login():
 
 @app.route('/create', methods=['GET', 'POST'])
 @login_required
+@requires_admin_auth
 def create():
     error = ''
     form = CreateForm()
@@ -110,6 +124,7 @@ def create():
 
 @app.route('/changeuser/<username>', methods=['GET', 'POST'])
 @login_required
+@requires_admin_auth
 def changeuser(username):
     error = ''
     getlevel = User.query.filter_by(username=username).first_or_404()
@@ -133,7 +148,7 @@ def changeuser(username):
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html', user=current_user.username) # NOQA
+    return render_template('index.html', user=current_user.username, role=current_user.level) # NOQA
 
 
 @app.route('/logout')

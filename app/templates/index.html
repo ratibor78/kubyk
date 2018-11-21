@@ -64,9 +64,11 @@
           <div class="dropdown-menu" aria-labelledby="messagesDropdown">
             <!--h6 class="dropdown-header">Actions:</h6-->
             <div class="dropdown-divider"></div>
+            {% if role == 'admin' %}
             <a class="dropdown-item" href="/users">
               <i class="fa fa-user fa-fw"></i>Manage Users
             </a>
+            {% endif %}
             <a class="dropdown-item" href="#">
               <i class="fa fa-gear fa-fw"></i>Preferences
             </a>
