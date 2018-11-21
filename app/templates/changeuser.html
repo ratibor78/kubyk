@@ -4,7 +4,10 @@
 <body class="bg-dark">
   <div class="container">
     <div class="card card-login mx-auto mt-5">
-      <div class="card-header">Change password for <b>{{ username }}</b></div>
+      <div class="card-header">
+        <img alt="Kubyk" src="{{url_for('.static', filename='logo.png')}}" align="center" >
+        Change <b>{{ username }}</b> account
+      </div>
       <div class="card-body">
         {% if error  %}
         <div class="alert alert-warning">
@@ -22,12 +25,11 @@
               {{ form.password(class_="form-control", placeholder="Password", id="password") }}
             </div>
           <div class="form-group">
-            <label for="level">Access level</label>
-
+            <label for="level">Change access level</label>
                 {{ form.level(class_="custom-select w-70", id="level") }}
             </div>
             <div>
-          <button class="btn btn-primary btn-block" value=changepass type="submit">Set new password</button>
+          <button class="btn btn-primary btn-block" value=changepass type="submit">Set new parameters</button>
           <a href="/users" class="btn btn-secondary btn-block" role="button" aria-pressed="true">Cancel</a>
         </div>
         </form>

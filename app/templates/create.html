@@ -4,7 +4,10 @@
 <body class="bg-dark">
   <div class="container">
     <div class="card card-login mx-auto mt-5">
-      <div class="card-header">Create new User</div>
+      <div class="card-header">
+        <img alt="Kubyk" src="{{url_for('.static', filename='logo.png')}}" align="center" >
+        Creating new User
+      </div>
       <div class="card-body">
         <form form action="{{ url_for('create') }}" method="POST">
           {% if error  %}

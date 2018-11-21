@@ -48,7 +48,7 @@ class CreateForm(FlaskForm):
 
 class ChangeForm(FlaskForm):
     password = PasswordField('password') # NOQA
-    level = SelectField('Access Level', validators=[DataRequired()], choices=[("", ""), ("admin", "admin"), ("user", "user")]) # NOQA
+    level = SelectField('Access Level', validators=[DataRequired()], choices=[("admin", "admin"), ("user", "user")]) # NOQA
 
 
 @app.route('/users')
