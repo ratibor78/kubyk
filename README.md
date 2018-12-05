@@ -10,7 +10,7 @@
 
 Based on Bootstrap and SQlite, for helping you to create own WEB UI projects for some automation tasks. 
 
-From box you got a user levels, small Sqlite database for storing some data, some examples of using Python and Flask. Soon there be the Docker file and Docker Image ready for deploying and some addition documentation about it.
+From box you'll get a user levels, small Sqlite database for storing some data, some examples of using Python and Flask. Soon there be the Docker file and Docker Image ready for deploying and some addition documentation about it.
 
 ## Installation
 
