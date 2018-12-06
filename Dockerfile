@@ -1,20 +1,30 @@
 FROM debian:stretch-slim
 MAINTAINER Alexey Nizhegolenko <ratibor78@gmail.com>
 
-RUN mkdir /opt/kubyk
-COPY . /opt/kubyk
+COPY requirements.txt /tmp/requirements.txt
 
 RUN \
   apt-get update && \
-  apt-get install -y --no-install-recommends uwsgi uwsgi-plugin-python uwsgi-plugin-sqlite3 python python-dev python-pip python-setuptools && \
-  apt-get clean && \
-  pip install -r /opt/kubyk/requirements.txt
+  apt-get install -y --no-install-recommends uwsgi \
+  uwsgi-plugin-python uwsgi-plugin-sqlite3 supervisor \
+  python python-dev python-pip python-setuptools nginx && \
+  pip install -r /tmp/requirements.txt && \
+  rm /etc/nginx/sites-enabled/default && \
+  mkdir /kubyk && \
+  apt-get clean
 
+COPY ./app /kubyk/app
 
-EXPOSE 8080
+COPY ./sqlite /kubyk/sqlite
 
-CMD [ "uwsgi", "--master", "--plugin python" \
-              "--http-socket", "0.0.0.0:8080" \
-              "--mount", "/=kubyk:app" \
-              "--processes", "2" \
-              "--threads", "2", "--die-on-term" ]
+COPY ./kubyk.py config.py /kubyk/
+
+COPY supervisord.conf /etc/supervisord.conf
+
+COPY uwsgi.ini /etc/uwsgi/
+
+COPY kubyk-nginx.conf /etc/nginx/conf.d/
+
+EXPOSE 80
+
+CMD ["/usr/bin/supervisord"]
