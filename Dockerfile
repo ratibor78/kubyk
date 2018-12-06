@@ -6,7 +6,7 @@ COPY . /opt/kubyk
 
 RUN \
   apt-get update && \
-  apt-get install -y --no-install-recommends python python-dev python-pip && \
+  apt-get install -y --no-install-recommends python python-dev python-pip python-setuptools && \
   apt-get clean && \
   pip install -r /opt/kubyk/requirements.txt
 
