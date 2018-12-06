@@ -13,4 +13,8 @@ RUN \
 
 EXPOSE 8080
 
-CMD uwsgi --ini /opt/kubyk/uwsgi.ini
+CMD [ "uwsgi", "--master", "--plugin python" \
+              "--http-socket", "0.0.0.0:8080" \
+              "--mount", "/=kubyk:app" \
+              "--processes", "2" \
+              "--threads", "2", "--die-on-term" ]
