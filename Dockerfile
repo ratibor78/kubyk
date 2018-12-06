@@ -13,4 +13,4 @@ RUN \
 
 EXPOSE 8080
 
-CMD uwsgi --ini /opt/kubyk/uswgi.ini
+CMD uwsgi --ini /opt/kubyk/uwsgi.ini
