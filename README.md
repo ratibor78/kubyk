@@ -21,6 +21,6 @@ From box you'll get a user levels, small Sqlite database for storing some data, 
 $ cd kubyk
 $ virtualenv venv && source venv/bin/activate
 $ pip install -r requirements.txt
-$ python app.py 
+$ python kubyk.py 
 ```
 Open in your browser http://127.0.0.1:5000 
