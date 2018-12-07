@@ -8,7 +8,7 @@
 ![Alt text](https://github.com/ratibor78/kubyk/blob/master/kubyk2.png?raw=true "Kubyk WEB UI main page menu")
 ![Alt text](https://github.com/ratibor78/kubyk/blob/master/kubyk3.png?raw=true "Kubyk WEB UI users admin")
 
-Project based on Bootstrap and SQlite, for helping you with creating own WEB UI projects for some automation tasks. 
+Project based on Bootstrap and SQlite, for helping you with creating own WEB UI for some automation tasks. 
 
 From box you'll get a user levels, small Sqlite database for storing any data, some examples of using Python and Flask. Also there is a Dockerfile ready for creating Docker image for quick start. 
 
