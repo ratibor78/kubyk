@@ -8,9 +8,17 @@
 ![Alt text](https://github.com/ratibor78/kubyk/blob/master/kubyk2.png?raw=true "Kubyk WEB UI main page menu")
 ![Alt text](https://github.com/ratibor78/kubyk/blob/master/kubyk3.png?raw=true "Kubyk WEB UI users admin")
 
-Based on Bootstrap and SQlite, for helping you to create own WEB UI projects for some automation tasks. 
+Project based on Bootstrap and SQlite, for helping you with creating own WEB UI projects for some automation tasks. 
 
-From box you'll get a user levels, small Sqlite database for storing some data, some examples of using Python and Flask. Soon there be the Docker file and Docker Image ready for deploying and some addition documentation about it.
+From box you'll get a user levels, small Sqlite database for storing any data, some examples of using Python and Flask. Also there is a Dockerfile ready for creating Docker image for quick start. 
+
+## Check what it is: 
+
+```
+$ docker run -d --name kubyk -p 80:80 ratibor78/kubyk
+```
+After open http://yourip:80 in your browser.
+
 
 ## Installation
 
@@ -24,3 +32,13 @@ $ pip install -r requirements.txt
 $ python kubyk.py 
 ```
 Open in your browser http://127.0.0.1:5000 
+
+### Compile and run with Docker 
+1) Clone the repository
+
+```
+$ cd kubyk
+$ docker build -t anyname/kubyk .
+$ docker run -d --name kubyk -p 80:80 anyname/kubyk
+```
+Use it. 
