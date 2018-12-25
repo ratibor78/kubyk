@@ -17,7 +17,7 @@ From box you'll get a user levels, small Sqlite database for storing any data, s
 ```
 $ docker run -d --name kubyk -p 80:80 ratibor78/kubyk
 ```
-After open http://yourip:80 in your browser.
+After open http://yourip:80 in your browser and login = admin, password = admin
 
 
 ## Installation
