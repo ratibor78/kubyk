@@ -31,7 +31,7 @@ $ virtualenv venv && source venv/bin/activate
 $ pip install -r requirements.txt
 $ python kubyk.py 
 ```
-Open in your browser http://127.0.0.1:5000 
+Open in your browser http://127.0.0.1:5000 login = admin, password = admin
 
 ### Compile and run with Docker 
 1) Clone the repository
